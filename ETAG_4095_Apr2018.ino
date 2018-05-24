@@ -273,7 +273,7 @@ Serial1.begin(9600);
   delay(500);
   Serial1.write(wakeUp, 5);
   delay(500);
-  if (hh == 05 && mm >= 30)
+  if (hh == 21 && mm >= 00)
   {
     delay(500);
     Serial1.write(selectDevice, 5);
@@ -284,7 +284,7 @@ Serial1.begin(9600);
     delay(500);
     Serial1.write(playLoop, 5);
   }
-  else if (hh == 11 && mm >= 30)
+  else if (hh == 23 && mm >= 30)
   {
     Serial1.write(playStop, 4);
   }
@@ -322,12 +322,13 @@ void loop() {  //This is the main function. It loops (repeats) forever.
         flashLED();
         logRFID_To_SD(&xd);
         writeRFID_To_FlashLine(&xd);  //function to log to backup memory
+        Serial1.write(playLoop, 5);  
         while (currentMillis >= 19800000 && currentMillis <= 41400000)
         {
           //Serial1.write(selectDevice, 5);
           //Serial1.write(setVolumeLow, 5);
           //delay(500);
-          Serial1.write(playLoop, 5);
+          //Serial1.write(playLoop, 5);
           //serial.println("Noise On");
         }
         //match = checkTag();
@@ -353,11 +354,12 @@ void loop() {  //This is the main function. It loops (repeats) forever.
         flashLED();
         logRFID_To_SD(&xd);
         writeRFID_To_FlashLine(&xd);  //function to log to backup memory
+        Serial1.write(playPaused, 4);
         while(currentMillis >= 19800000 && currentMillis <= 41400000)
         {
           //Serial1.write(selectDevice, 5);
           //Serial1.write(setVolumeLow, 5);
-          Serial1.write(playPaused, 4);
+          //Serial1.write(playPaused, 4);
         }
         
         //match = checkTag();
